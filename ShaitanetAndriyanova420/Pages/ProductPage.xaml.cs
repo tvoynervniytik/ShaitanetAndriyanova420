@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
+using ShaitanetAndriyanova420.DB;
 
 namespace ShaitanetAndriyanova420.Pages
 {
@@ -20,9 +22,13 @@ namespace ShaitanetAndriyanova420.Pages
     /// </summary>
     public partial class ProductPage : Page
     {
+        public List<Product> products {  get; set; }
+
         public ProductPage()
         {
             InitializeComponent();
+            Refresh();
+            this.DataContext = products;
         }
 
         public static Window GetParentWindow(DependencyObject child)
@@ -66,5 +72,38 @@ namespace ShaitanetAndriyanova420.Pages
             }
         }
 
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Вы уверены, что хотите выйти?", "Подтверждение выхода", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                NavigationService.Navigate(new AuthorizationPage());
+            }
+        }
+
+        private void searchTb_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Refresh();
+
+        }
+        public void Refresh()
+        {
+            products = new List<Product>(DBConnection.Shaitanet.Product);
+            string text = searchTb.Text.ToLower().Trim();
+            products = products.Where(i => i.Name.ToLower().Contains(text)).ToList();
+            productsLv.ItemsSource = products;
+        }
+
+        private void productsLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Product product = productsLv.SelectedItem as Product;
+            NavigationService.Navigate(new ProductAdd(product));
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ProductAdd(new Product()));
+        }
+      
     }
 }

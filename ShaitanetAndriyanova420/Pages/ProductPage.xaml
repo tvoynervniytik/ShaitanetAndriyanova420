@@ -11,19 +11,60 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="450"/>
             <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="400"/>
         </Grid.ColumnDefinitions>
         <TextBlock Text="Шайтане"/>
-        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Right">
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="3" VerticalAlignment="Top" HorizontalAlignment="Right">
             <Button x:Name="MinimizeButton" Content="Свернуть" Width="200" Height="50" Click="MinimizeButton_Click"/>
             <Button x:Name="CloseButton" Content="Закрыть" Width="200" Height="50" Margin="10 0" Click="CloseButton_Click"/>
         </StackPanel>
        
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <Button Content="Корма" Margin="10 50" Click="Button_Click"/>
+            <Button Content="Выход" Margin="10 0" 
+                    x:Name="exitBtn" Click="ExitButton_Click"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <ListView d:ItemsSource="{d:SampleData ItemCount=9}" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     Height="800"
+                      Name="productsLv" SelectionChanged="productsLv_SelectionChanged">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="1320">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="450"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding Image}" Width="200" Height="200"/>
+                            <StackPanel Grid.Column="2">
+                                <StackPanel Orientation="Horizontal"  >
+                                    <TextBlock Text="{Binding Name}"  FontSize="33"/>
+                                </StackPanel>
+                                <TextBlock Text="{Binding Cost}" FontSize="30"/>
+                                <TextBlock Text="{Binding Description}" FontSize="30"/>
+
+                            </StackPanel>
+                            <TextBlock Grid.Column="3" HorizontalAlignment="Center" Text="{Binding MinCostForAgent}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="2">
+            <TextBox x:Name="searchTb" TextChanged="searchTb_TextChanged"/>
+        </StackPanel>
     </Grid>
 </Page>
