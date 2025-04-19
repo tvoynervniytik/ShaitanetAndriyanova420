@@ -29,5 +29,47 @@ namespace ShaitanetAndriyanova420.Pages
         {
             NavigationService.Navigate(new AuthorizationPage());
         }
+
+        public static Window GetParentWindow(DependencyObject child)
+        {
+            DependencyObject parentObject = VisualTreeHelper.GetParent(child);
+
+            if (parentObject == null)
+            {
+                return null;
+            }
+
+            if (parentObject is Window parentWindow)
+            {
+                return parentWindow;
+            }
+
+            return GetParentWindow(parentObject);
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window parentWindow = GetParentWindow((DependencyObject)sender);
+
+            if (parentWindow != null)
+            {
+                var result = MessageBox.Show("Вы уверены, что хотите выйти?", "Подтверждение выхода", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    parentWindow.Close();
+                }
+            }
+        }
+
+        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window parentWindow = GetParentWindow((DependencyObject)sender);
+
+            if (parentWindow != null)
+            {
+                parentWindow.WindowState = WindowState.Minimized;
+            }
+        }
+
     }
 }

@@ -15,6 +15,15 @@
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="FontSize" Value="30"/>
+            <Setter Property="Width" Value="400"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+        <Style TargetType="PasswordBox">
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="Width" Value="400"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="BorderThickness" Value="2"/>
         </Style>
     </Application.Resources>
 </Application>

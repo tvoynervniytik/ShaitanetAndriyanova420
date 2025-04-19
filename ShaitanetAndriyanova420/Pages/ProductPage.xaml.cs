@@ -12,44 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ShaitanetAndriyanova420.DB;
 
 namespace ShaitanetAndriyanova420.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для AuthorizationPage.xaml
+    /// Логика взаимодействия для ProductPage.xaml
     /// </summary>
-    public partial class AuthorizationPage : Page
+    public partial class ProductPage : Page
     {
-        public List<User> Users { get; set; }
-        public AuthorizationPage()
+        public ProductPage()
         {
             InitializeComponent();
-            Users = new List<User>(DBConnection.Shaitanet.User.ToList());
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            string login = loginTb.Text.Trim();
-            string password = passwordTb.Password.Trim();
-            if (login == "" || password == "")
-                MessageBox.Show("Вы не заполнили данные", "", MessageBoxButton.OK, MessageBoxImage.Error);
-            else
-            {
-                if (Users.FirstOrDefault(i => i.Login == login && i.Password == password) != null)
-                {
-                    User user = Users.FirstOrDefault(i => i.Login == login && i.Password == password);
-                    MessageBox.Show($"Здравствуйте, {user.Name} {user.Patronymic} {user.Surname}. Ваша роль: {user.UserType.Name}", "",
-                        MessageBoxButton.OK, MessageBoxImage.Information);
-                    if (user.UserType.Name == "Модератор")
-                        NavigationService.Navigate(new ProductPage());
-                }
-                else
-                    MessageBox.Show("Польозователь не найден", "", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            }
-        }
-       
         public static Window GetParentWindow(DependencyObject child)
         {
             DependencyObject parentObject = VisualTreeHelper.GetParent(child);
@@ -90,6 +65,6 @@ namespace ShaitanetAndriyanova420.Pages
                 parentWindow.WindowState = WindowState.Minimized;
             }
         }
-       
+
     }
 }

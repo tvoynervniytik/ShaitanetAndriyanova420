@@ -12,11 +12,13 @@
         MinWidth="1800" MaxWidth="1800"
         Title="Шайтанет" Height="1000" Width="1800">
     <Grid>
+        
         <TextBlock Text="Шайтане"/>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
             <Button x:Name="MinimizeButton" Content="Свернуть" Width="200" Height="50" Click="MinimizeButton_Click"/>
             <Button x:Name="CloseButton" Content="Закрыть" Width="200" Height="50" Margin="10 0" Click="CloseButton_Click"/>
         </StackPanel>
-        <Frame x:Name="navFr" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="navFr" NavigationUIVisibility="Hidden">
+        </Frame>
     </Grid>
 </Window>
